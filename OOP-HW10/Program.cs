@@ -16,43 +16,87 @@ namespace OOP_HW10
 
             #region Задание 2
             //Console.WriteLine(Sum(@"C:\Users\YOGA\Desktop\OOP-10.txt"));
-            Sum(@"C:\Users\YOGA\Desktop\OOP-10.txt");
+            //Sum(@"C:\Users\YOGA\Desktop\OOP-10.txt");
             #endregion
 
-            #region Задание 3
-
+            #region Задание 3 ✔
+            //CreateFile();
+            //ChangeFile();
+            //Для проверки можно закомментировать второй метод
             #endregion
 
-            #region Задание 4
+            #region Задание 4 ✔
+            //var path = @"C:\Users\YOGA\Desktop\C# SkillFactory";
+            //var directories = new List<string>();
+            //var directoryNames = GetDirectories(new DirectoryInfo(path), directories);
 
-            var path = @"C:\Users\YOGA\Desktop\C# SkillFactory";
-            var directories = new List<string>();
-            var directoryNames = GetDirectories(new DirectoryInfo(path), directories);
-
-            foreach(var dirName in directoryNames)
-                Console.WriteLine(dirName);
+            //foreach(var dirName in directoryNames)
+            //    Console.WriteLine(dirName);
             #endregion
         }
+        //--------------------------------------------------------
+        //Задание 1
 
+        //--------------------------------------------------------
+        //Задание 2
         static void Sum(string path)
         {
-            var list = File.ReadAllText(path).Split(' ').Select(Convert.ToDouble).ToList();
-
-            Console.WriteLine(list.Sum());
+            var list = File.ReadAllText(path).Split(' ');
+            foreach(var num in list)
+                Console.WriteLine(num);
             //using(StreamReader sr = new StreamReader(path))
             //{
             //    var list = sr.ReadToEnd().Split(' ').
             //}
         }
-        /// <summary>
-        /// Задание 4
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        //--------------------------------------------------------
+        //Задание 3 ✔
+        static IEnumerable<long> Fibonachi()
+        {
+            int flag = 0;
+            long a = 0;
+            long b = 1;
+            long c;
+            yield return 0;
+            yield return 1;
+            while (flag < 8)
+            {
+                c = a + b;
+                yield return c;
+                flag++;
+                a = b;
+                b = c;
+            }
+        }
+        static void CreateFile()
+        {
+            var fileName = @"C:\Users\YOGA\Desktop\numbers.txt";
+
+            using (StreamWriter sw = new StreamWriter(fileName))
+            {
+                foreach (var number in Fibonachi())
+                    sw.WriteLine(number);
+            }
+            foreach(var number in File.ReadAllLines(fileName))
+                Console.WriteLine(number);
+        }
+
+        static void ChangeFile()
+        {
+            var fileName = @"C:\Users\YOGA\Desktop\numbers.txt";
+
+            using (StreamWriter sw = new StreamWriter(fileName))
+            {
+                foreach (var number in Fibonachi())
+                    sw.WriteLine(number * number);
+            }
+            foreach (var number in File.ReadAllLines(fileName))
+                Console.WriteLine(number);
+        }
+        //--------------------------------------------------------
+        //Задание 4 ✔
         static string[] GetDirectories(DirectoryInfo directory, List<string> directoryNames)
         {
-            //var directoryNames = new List<string>();
-
             foreach (var dir in directory.GetDirectories())
             {
                 directoryNames.Add(dir.FullName);
