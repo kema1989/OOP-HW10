@@ -15,8 +15,7 @@ namespace OOP_HW10
             #endregion
 
             #region Задание 2
-            //Console.WriteLine(Sum(@"C:\Users\YOGA\Desktop\OOP-10.txt"));
-            //Sum(@"C:\Users\YOGA\Desktop\OOP-10.txt");
+            Sum(@"C:\Users\YOGA\Desktop\OOP-10.txt");
             #endregion
 
             #region Задание 3 ✔
@@ -41,9 +40,9 @@ namespace OOP_HW10
         //Задание 2
         static void Sum(string path)
         {
-            var list = File.ReadAllText(path).Split(' ');
-            foreach(var num in list)
-                Console.WriteLine(num);
+            var list = File.ReadAllText(path).Split().Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => double.TryParse(x, out double y));
+            foreach(var number in list)
+                Console.WriteLine(number);
             //using(StreamReader sr = new StreamReader(path))
             //{
             //    var list = sr.ReadToEnd().Split(' ').
